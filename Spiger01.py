@@ -2,7 +2,7 @@
 #============= SPIGER ==============
 # Tool kit for penetration testing #
 # Version 0.1                      #
-# Developed for educational porpuse#
+# Developed for educational purpose#
 # in Halmstad University, Sweden   #
 # Network Forensics Master's       #
 # Dec 2017                         #_
@@ -81,9 +81,7 @@ def ping_of_death():
             print("-Wrong IP !")
     except KeyboardInterrupt:
         print("User Interupts!")
-    except MACField:
-        print("wrong input !")
-    except:
+    except Exception:
         print("wrong input !")
     c = input("Press enter to continue...")
     dos_menu()
@@ -510,16 +508,16 @@ def get_ddos():
 
 #target_ip = "192.168.56.102"  # input("Enter IP: ")
 #print(target_ip)
-menu_1 = ["__// App  Menu \____","App            |", "About          |", "Help           |", "Back           |", "               |", "               |","+------------------+"]
-menu_2 = ["__// info Menu \____","info           |", "Passive        |", "Active         |", "Back           |", "               |", "               |","+------------------+"]
-menu_3 = ["__// DoS  Menu \____","DoS            |", "SYN flood      |", "ICMP flood     |", "Ping of Death  |", "Malform packet |", "Back           |","+------------------+"]
-menu_4 = ["__// MiTM Menu \____","MiTM           |", "MiTM 1         |", "MiTM 1         |", "Back           |", "               |", "               |","+------------------+"]
-menu_45= ["__// MiTM Menu \____","DDoS           |", "DNS DDoS       |", "GET atk        |", "Back           |", "               |", "               |","+------------------+"]
+menu_1 = [r"__// App  Menu \____","App            |", "About          |", "Help           |", "Back           |", "               |", "               |","+------------------+"]
+menu_2 = [r"__// info Menu \____","info           |", "Passive        |", "Active         |", "Back           |", "               |", "               |","+------------------+"]
+menu_3 = [r"__// DoS  Menu \____","DoS            |", "SYN flood      |", "ICMP flood     |", "Ping of Death  |", "Malform packet |", "Back           |","+------------------+"]
+menu_4 = [r"__// MiTM Menu \____","MiTM           |", "MiTM 1         |", "MiTM 1         |", "Back           |", "               |", "               |","+------------------+"]
+menu_45= [r"__// MiTM Menu \____","DDoS           |", "DNS DDoS       |", "GET atk        |", "Back           |", "               |", "               |","+------------------+"]
 menu_5 = [" ", "Exit Spiger    |"]
-menu_6 = ["__/// Passive \_____","passive        |", "Sniff          |", "Open .pcap file|", "Back           |", "               |", "               |","+------------------+"]
-menu_7 = ["__/// Active  \_____","active         |", "Who is up?     |", "Port scan      |", "Back           |", "               |", "               |","+------------------+"]
-menu_8 = ["__//// Sniffing \___","sniffing       |", "Sniff interface|", "Sniff a host   |", "Back           |", "               |", "               |","+------------------+"]
-menu_m = ["__/ Spiger \________",menu_1, menu_2, menu_3, menu_4, menu_45,menu_5,"+------------------+"]
+menu_6 = [r"__/// Passive \_____","passive        |", "Sniff          |", "Open .pcap file|", "Back           |", "               |", "               |","+------------------+"]
+menu_7 = [r"__/// Active  \_____","active         |", "Who is up?     |", "Port scan      |", "Back           |", "               |", "               |","+------------------+"]
+menu_8 = [r"__//// Sniffing \___","sniffing       |", "Sniff interface|", "Sniff a host   |", "Back           |", "               |", "               |","+------------------+"]
+menu_m = [r"__/ Spiger \________",menu_1, menu_2, menu_3, menu_4, menu_45,menu_5,"+------------------+"]
 
 def About():
     print("+----------------------+\n"
