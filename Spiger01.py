@@ -21,7 +21,6 @@ import sys
 import time
 #if __name__ == "main":
 
-global pd_i, sniffed_packets
 pd_i = True
 
 victim_ip = ""
@@ -36,7 +35,7 @@ dnss_list = ["37.208.0.5","194.47.12.51"]
 #global 
 
 def rnd_ip(): # can be customized to generate random IPs in a given subnet
-    ip =[1,1,1,1]
+    ip =["", "", "", ""]
     ip[0] = str(random.randrange(55,193))
     ip[1] = str(random.randrange(10,250))
     ip[2] = str(random.randrange(20,252))
@@ -114,15 +113,17 @@ def exit_app(arg1):
     print("Exit the app")
 
 def get_mac(ip, iface_arg):
+    ans = []
     try:
         print("getting mac")
         conf.verb = 0
         ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ip), timeout=2, iface=iface_arg)
-    except:
+    except Exception:
         print("wrong input !")
         mitm_menu()
     for snd, rcv in ans:
         return rcv.sprintf(r"%Ether.src%")
+    return None
 
 
 def reARP():
@@ -400,11 +401,8 @@ def who_is_up():
     ups=[]
     try:
         if (is_ip(ip1) and is_ip(ip2)):
-            ip1_octets = ip1.split(".")
-            ip2_octets = ip2.split(".")
-            for i in range(4):
-                ip1_octets[i] = int(ip1_octets[i])
-                ip2_octets[i] = int(ip2_octets[i])
+            ip1_octets = [int(x) for x in ip1.split(".")]
+            ip2_octets = [int(x) for x in ip2.split(".")]
             for g in range(ip1_octets[0],ip2_octets[0]+1):  # covers all IPs in the range
                 if(ip1_octets[0] < ip2_octets[0]):        # if corresponding 'to' octet is >,
                     ip2_octets[1] = 255                 #  next octet iterate up to 255
